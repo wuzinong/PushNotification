@@ -30,80 +30,31 @@ public class MyHandler extends NotificationsHandler{
         String nhTitle = bundle.getString("title");
 
         String url = bundle.getString("url");
+        String type = bundle.getString("type");
+        String action = bundle.getString("action");
 
         String open_type = bundle.getString("open_type");
 
 
-        sendNotification(nhMessage,open_type);
+        sendNotification(nhMessage,open_type,url,type,action);
         if (MainActivity.isVisible) {
-            MainActivity.mainActivity.ToastNotify("Title: "+nhTitle+" message: "+nhMessage+" url:"+url);
+            MainActivity.mainActivity.ToastNotify("Title: "+nhTitle+" message: "+nhMessage);
         }
 
-//        if(open_type.equals("1")){
-//            // if equals 1 then open url
-//            Intent intent = new Intent();
-//            intent.setAction("android.intent.action.VIEW");
-//            Uri content_url = Uri.parse(url);
-//            intent.setData(content_url);
-//            context.startActivity(intent);
-//        }
 
     }
 
 
 
-    private void sendNotification(String message,String open_type) {
-
-//        Intent intent = new Intent(ctx, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
-//        mNotificationManager = (NotificationManager)
-//                ctx.getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//        PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,
-//                intent, PendingIntent.FLAG_ONE_SHOT);
-//
-//        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//        NotificationCompat.Builder mBuilder =
-//                new NotificationCompat.Builder(ctx)
-//                        .setSmallIcon(R.mipmap.ic_launcher)
-//                        .setContentTitle("Notification Hub Demo")
-//                        .setStyle(new NotificationCompat.BigTextStyle()
-//                                .bigText(msg))
-//                        .setSound(defaultSoundUri)
-//                        .setContentText(msg);
-//
-//        mBuilder.setContentIntent(contentIntent);
-//        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-
-
-//        Intent intent = new Intent(ctx, SubActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
-//       // intent.setAction(Long.toString(System.currentTimeMillis()));
-//
-//        mNotificationManager = (NotificationManager)
-//                ctx.getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//        PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,
-//                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//         NotificationCompat.Builder mBuilder =
-//                new NotificationCompat.Builder(ctx)
-//                        .setSmallIcon(R.mipmap.ic_launcher)
-//                        .setContentTitle("Notification Hub Demo")
-//                        .setStyle(new NotificationCompat.BigTextStyle()
-//                                .bigText(msg))
-//                        .setSound(defaultSoundUri)
-//                        .setContentText(msg)
-//                        .setContentIntent(contentIntent);
-//
-//        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    private void sendNotification(String message,String open_type,String url,String type,String action) {
 
         Intent intent = new Intent(ctx, SubActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("message",message);
         intent.putExtra("open_type",open_type);
+        intent.putExtra("url",url);
+        intent.putExtra("type",type);
+        intent.putExtra("action",action);
 
         mNotificationManager = (NotificationManager)
                 ctx.getSystemService(Context.NOTIFICATION_SERVICE);

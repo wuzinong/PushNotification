@@ -49,14 +49,15 @@ public class Notifications {
             protected Object doInBackground(Object... params) {
                 try {
 
-                    if(!categories.contains(NotificationSettings.BasicChannelID)){
-                        categories.add(NotificationSettings.BasicChannelID);
-                    }
+                    //default regist a channel
+//                    if(!categories.contains(NotificationSettings.BasicChannelID)){
+//                        categories.add(NotificationSettings.BasicChannelID);
+//                    }
 
 
                     String regid = gcm.register(senderId);
 
-                    String templateBodyGCM = "{\"data\":{\"message\":\"$(message)\",\"open_type\":\"$(open_type)\",\"url\":\"$(url)\"}}";
+                    String templateBodyGCM = "{\"data\":{\"message\":\"$(message)\",\"open_type\":\"$(open_type)\",\"url\":\"$(url)\",\"type\":\"$(type)\",\"action\":\"$(action)\"}}";
 
                     hub.registerTemplate(regid,"simpleGCMTemplate", templateBodyGCM,
                             categories.toArray(new String[categories.size()]));

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = "MainActivity";
 
-    CheckBox cb1,cb2,cb3;
+    CheckBox cb1,cb2,cb3,cb4;
     Button subBtn;
 
     private Notifications notifications;
@@ -56,9 +56,12 @@ public class MainActivity extends AppCompatActivity {
         notifications.subscribeToCategories(notifications.retrieveCategories());
 
 
+
+
         cb1 = (CheckBox) findViewById(R.id.checkBox1);
         cb2 = (CheckBox) findViewById(R.id.checkBox2);
         cb3 = (CheckBox) findViewById(R.id.checkBox3);
+        cb4 = (CheckBox) findViewById(R.id.checkBox4);
         subBtn = (Button) findViewById(R.id.button2);
 
 
@@ -70,14 +73,17 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
                 Set<String> cTemp = Notifications.cts;
 
-                if(cTemp.contains("TagOne")){
+                if(cTemp.contains("user:7f97b4c9-fc4d-4a30-b27e-03eb35b4f92c")){
                     cb1.setChecked(true);
                 }
-                if(cTemp.contains("TagTwo")){
+                if(cTemp.contains("channel:2572ddea-551d-4361-a08b-739256809383")){
                     cb2.setChecked(true);
                 }
-                if(cTemp.contains("TagThree")){
+                if(cTemp.contains("channel:fd3dedb8-0212-4222-8232-6b593af020db")){
                     cb3.setChecked(true);
+                }
+                if(cTemp.contains("channel:851d2ca8-6f2c-486a-be4e-6d0cee37ff7e")){
+                    cb4.setChecked(true);
                 }
 
             }
@@ -90,19 +96,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         subBtn.setOnClickListener(new View.OnClickListener() {
-            HashSet<String> temp = new HashSet<String>();
+
             @Override
             public void onClick(View v) {
+                HashSet<String> temp = new HashSet<String>();
                 if(cb1.isChecked()){
-                    temp.add(cb1.getText().toString());
+                    temp.add("user:7f97b4c9-fc4d-4a30-b27e-03eb35b4f92c");
                 }
                 if(cb2.isChecked()){
-                    temp.add(cb2.getText().toString());
+                    temp.add("channel:2572ddea-551d-4361-a08b-739256809383");
                 }
                 if(cb3.isChecked()){
-                    temp.add(cb3.getText().toString());
+                    temp.add("channel:fd3dedb8-0212-4222-8232-6b593af020db");
                 }
-                // mock data
+                if(cb4.isChecked()){
+                    temp.add("channel:851d2ca8-6f2c-486a-be4e-6d0cee37ff7e");
+                }
+                //  // register tags passed from layout
                MainActivity.this.subscribe(temp);
             }
         });
@@ -113,12 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
     //mock subscribe tags so that we can receive the tagged news.
     public void subscribe(Set<String> categories){
-//        final Set<String> categories = new HashSet<String>();
-//
-//        //mock begin
-//        categories.add("channelOne");
-//        categories.add("channelTest");
-//        //mock end
 
         notifications.storeCategoriesAndSubscribe(categories);
     }
